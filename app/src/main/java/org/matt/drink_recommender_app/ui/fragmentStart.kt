@@ -1,4 +1,4 @@
-package org.matt.drink_recommender_app
+package org.matt.drink_recommender_app.ui
 
 import android.content.Context
 import android.net.Uri
@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import org.matt.drink_recommender_app.R
 
 
 /**

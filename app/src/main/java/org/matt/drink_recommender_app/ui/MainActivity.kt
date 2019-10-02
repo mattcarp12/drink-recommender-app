@@ -1,7 +1,8 @@
-package org.matt.drink_recommender_app
+package org.matt.drink_recommender_app.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import org.matt.drink_recommender_app.R
 
 class MainActivity : AppCompatActivity() {
 
