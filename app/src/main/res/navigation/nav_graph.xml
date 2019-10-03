@@ -7,16 +7,16 @@
 
     <fragment
         android:id="@+id/fragmentStart"
-        android:name="org.matt.drink_recommender_app.ui.fragmentStart"
-        android:label="fragment_fragment_start"
-        tools:layout="@layout/fragment_fragment_start" >
+        android:name="org.matt.drink_recommender_app.ui.FragmentStart"
+        android:label="fragment_start"
+        tools:layout="@layout/fragment_start" >
         <action
-            android:id="@+id/action_fragmentStart_to_q1"
-            app:destination="@id/q1" />
+            android:id="@+id/action_fragmentStart_to_fragmentQuestion"
+            app:destination="@id/fragmentQuestion" />
     </fragment>
     <fragment
-        android:id="@+id/q1"
+        android:id="@+id/fragmentQuestion"
         android:name="org.matt.drink_recommender_app.ui.Q1"
-        android:label="fragment_q1"
-        tools:layout="@layout/fragment_q1" />
+        android:label="fragment_question"
+        tools:layout="@layout/fragment_question" />
 </navigation>

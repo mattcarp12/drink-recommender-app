@@ -3,4 +3,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="q1_title">Question 1</string>
+    <string name="q1_question">What is your gender?</string>
+    <string name="q1_opt1">Female</string>
+    <string name="q1_opt2">Male</string>
+    <string name="q1_opt3">Other</string>
+    <string name="back">Back</string>
+    <string name="next">Next</string>
 </resources>
