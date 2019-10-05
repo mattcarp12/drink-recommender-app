@@ -10,4 +10,6 @@
     <string name="q1_opt3">Other</string>
     <string name="back">Back</string>
     <string name="next">Next</string>
+
+    <string name="questionNumber">Question %1$d</string>
 </resources>
