@@ -1,36 +1,37 @@
 package org.matt.drink_recommender_app.viewmodel
 
-import android.app.Application
-import android.view.View
-import android.widget.RadioGroup
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import org.matt.drink_recommender_app.model.Answers
+import org.matt.drink_recommender_app.model.Questions
 
-class ViewModelQuestions(application: Application) : AndroidViewModel(application) {
-    var current = 1
+class ViewModelQuestions : ViewModel() {
 
-    val keys = listOf<String>(
-        "gender"
-        , "pets"
-        , "occupation"
-        , "personality"
-    )
+    val questions = Questions()
+    val answers = Answers()
 
-    val questions = mapOf<String, String>(
-        "gender" to "What is your gender?"
-        , "pets" to "How many pets do you have?"
-        , "occupation" to "What is your occupation?"
-        , "personality" to "What best describes your personality?"
-    )
-
-    var answers = HashMap<String, String>()
-
-    /*val responseViews = mapOf<String, View>(
-        "gender" to genderView
-    )
-
-    val genderView: RadioGroup = RadioGroup(application)
-*/
+    val currentQuestionNumber: MutableLiveData<Int> = MutableLiveData(0)
+    val currentQuestion: MutableLiveData<String> =
+        MutableLiveData(questions.getCurrentQuestion())
 
 
+    fun nextQuestion() {
+        questions.next()
+        update()
+    }
+
+    fun prevQuestion() {
+        questions.prev()
+        update()
+    }
+
+    fun update() {
+        currentQuestionNumber.value = questions.currentQuestionNumber
+        currentQuestion.value = questions.getCurrentQuestion()
+    }
+
+    fun setAnswer(answer: String) {
+        val key = questions.keys[questions.currentQuestionNumber]
+        answers.set(key, answer)
+    }
 }

@@ -12,27 +12,16 @@ import org.matt.drink_recommender_app.R
 
 class FragmentStart : Fragment() {
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_start, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_start, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         start_button.setOnClickListener(
-            Navigation.createNavigateOnClickListener(
-                R.id.action_fragmentStart_to_fragmentQuestion,
-                null
-            )
+            Navigation.createNavigateOnClickListener(R.id.action_fragmentStart_to_fragmentQuestion,null)
         )
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = FragmentStart()
     }
 }
