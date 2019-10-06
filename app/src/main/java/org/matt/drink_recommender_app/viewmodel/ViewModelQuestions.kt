@@ -9,29 +9,34 @@ class ViewModelQuestions : ViewModel() {
 
     val questions = Questions()
     val answers = Answers()
+    var currentQuestionNumber = 0
 
-    val currentQuestionNumber: MutableLiveData<Int> = MutableLiveData(0)
-    val currentQuestion: MutableLiveData<String> =
-        MutableLiveData(questions.getCurrentQuestion())
+    val currentQuestionNumberLiveData: MutableLiveData<Int> = MutableLiveData(0)
+    val currentQuestionLiveData: MutableLiveData<String> =
+        MutableLiveData(questions.questionList[0].questionText)
 
 
-    fun nextQuestion() {
-        questions.next()
+    fun nextQuestion(): Boolean {
+        if (currentQuestionNumber == questions.size()) return false
+        currentQuestionNumber++
         update()
+        return true
     }
 
-    fun prevQuestion() {
-        questions.prev()
+    fun prevQuestion(): Boolean {
+        if (currentQuestionNumber == 0) return false
+        currentQuestionNumber--
         update()
+        return true
     }
 
     fun update() {
-        currentQuestionNumber.value = questions.currentQuestionNumber
-        currentQuestion.value = questions.getCurrentQuestion()
+        currentQuestionNumberLiveData.value = currentQuestionNumber
+        currentQuestionLiveData.value = questions.questionList[currentQuestionNumber].questionText
     }
 
-    fun setAnswer(answer: String) {
+    /*fun setAnswer(answer: String) {
         val key = questions.keys[questions.currentQuestionNumber]
         answers.set(key, answer)
-    }
+    }*/
 }

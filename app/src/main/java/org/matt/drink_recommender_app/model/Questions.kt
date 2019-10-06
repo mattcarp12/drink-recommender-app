@@ -1,5 +1,11 @@
 package org.matt.drink_recommender_app.model
 
+
+data class Questions(val questionList: List<Question>) {
+    fun size(): Int = questionList.size
+}
+
+/*
 data class Questions(
     var currentQuestionNumber: Int
     , var keys: List<String>
@@ -27,11 +33,23 @@ data class Questions(
         answers[keys[questionNumber]] = answer
     }
 
-    fun getCurrentQuestion(): String {
+    fun getCurrentQuestionNumberLiveData(): String {
         return questionList[currentQuestionNumber]
     }
 
-    fun next() = currentQuestionNumber++
-    fun prev() = currentQuestionNumber--
+    fun next(): Boolean {
+        if (currentQuestionNumber == keys.size - 1) return false
+        else {
+            currentQuestionNumber++
+            return true
+        }
+    }
+    fun prev(): Boolean {
+        if (currentQuestionNumber == 0) return false
+        else {
+            currentQuestionNumber--
+            return true
+        }
+    }
 
-}
+}*/

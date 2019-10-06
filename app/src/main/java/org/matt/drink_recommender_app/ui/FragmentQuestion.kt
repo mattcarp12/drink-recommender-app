@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_question.*
 import org.matt.drink_recommender_app.R
 import org.matt.drink_recommender_app.viewmodel.ViewModelQuestions
@@ -34,19 +35,28 @@ class FragmentQuestion : Fragment() {
         /*
         * Subscribe to live data in view model
         */
-        viewModel.currentQuestionNumber.observe(viewLifecycleOwner, Observer {
+        viewModel.currentQuestionNumberLiveData.observe(viewLifecycleOwner, Observer {
             question_title.text = getString(R.string.questionNumber, it + 1)
         })
 
-        viewModel.currentQuestion.observe(viewLifecycleOwner, Observer {
+        viewModel.currentQuestionLiveData.observe(viewLifecycleOwner, Observer {
             question_text.text = it
         })
 
         /*
         * Set button listeners
         */
-        next_button.setOnClickListener({viewModel.nextQuestion()})
-        back_button.setOnClickListener(View.OnClickListener { viewModel.prevQuestion() })
+        next_button.setOnClickListener({nextButtonClick()})
+        back_button.setOnClickListener({backButtonClick()})
 
+    }
+
+    fun nextButtonClick() {
+        if(!viewModel.nextQuestion())
+            findNavController().navigate(R.id.action_fragmentQuestion_to_fragmentResult)
+    }
+
+    fun backButtonClick() {
+        viewModel.prevQuestion()
     }
 }
