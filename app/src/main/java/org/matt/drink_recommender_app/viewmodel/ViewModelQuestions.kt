@@ -36,10 +36,15 @@ class ViewModelQuestions : ViewModel() {
     fun update() {
         currentQuestionNumberLiveData.value = currentQuestionNumber
         currentQuestionLiveData.value = questions.questionList[currentQuestionNumber].questionText
-        currentQuestionResponsesLiveData.value = questions.questionList[currentQuestionNumber].responses
+        currentQuestionResponsesLiveData.value =
+            questions.questionList[currentQuestionNumber].responses
     }
 
     fun setAnswer(answer: String) {
         answers.set(questions.questionList[currentQuestionNumber].questionName, answer)
     }
+
+    fun getAnswer(): String? =
+        answers.get(questions.questionList[currentQuestionNumber].questionName)
+
 }
