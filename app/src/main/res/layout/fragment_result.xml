@@ -8,10 +8,10 @@
     tools:context=".ui.FragmentResult">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/displayDrinkRecommendation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Here is your result!"
+        android:text="@string/drinkRecommendation"
         android:textAppearance="@style/TextAppearance.AppCompat.Display4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

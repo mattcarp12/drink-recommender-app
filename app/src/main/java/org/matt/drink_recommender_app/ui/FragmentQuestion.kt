@@ -1,5 +1,7 @@
 package org.matt.drink_recommender_app.ui
 
+import android.annotation.TargetApi
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +14,12 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_question.*
 import org.matt.drink_recommender_app.R
-import org.matt.drink_recommender_app.viewmodel.ViewModelQuestions
+import org.matt.drink_recommender_app.viewmodel.AppViewModel
+import java.time.LocalDate
 
 class FragmentQuestion : Fragment() {
 
-    lateinit var viewModel: ViewModelQuestions
+    lateinit var viewModel: AppViewModel
     var TAG: String = "FragmentQuestion"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -25,7 +28,7 @@ class FragmentQuestion : Fragment() {
         val view = inflater.inflate(R.layout.fragment_question, container, false)
 
         viewModel = activity?.run {
-            ViewModelProviders.of(this)[ViewModelQuestions::class.java]
+            ViewModelProviders.of(this)[AppViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
 
         return view
@@ -60,10 +63,14 @@ class FragmentQuestion : Fragment() {
         })
     }
 
+    @TargetApi(Build.VERSION_CODES.O)
     fun nextButtonClick() {
         next_button.isEnabled = false
-        if (!viewModel.nextQuestion())
+        if (!viewModel.nextQuestion()) {
+            viewModel.setAnswer("dayofweek", (LocalDate.now().dayOfWeek.toString()).toLowerCase())
             findNavController().navigate(R.id.action_fragmentQuestion_to_fragmentResult)
+        }
+
     }
 
     fun backButtonClick() {
