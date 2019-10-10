@@ -57,8 +57,8 @@ class AppViewModel : ViewModel() {
         answers.get(questions.questionList[currentQuestionNumber].questionName)
 
     fun getResponse() {
-        val recommendedDrink = repository.getRecommendedDrink(answers)
-        recommendedDrink
+        repository
+            .getRecommendedDrink(answers)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(this::handleResponse, this::handleError)
@@ -69,6 +69,6 @@ class AppViewModel : ViewModel() {
     }
 
     fun handleError(error: Throwable) {
-        Log.d(TAG, error.localizedMessage)
+        Log.d(TAG, error.toString())
     }
 }

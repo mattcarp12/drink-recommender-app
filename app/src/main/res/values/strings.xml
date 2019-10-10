@@ -12,5 +12,6 @@
     <string name="next">Next</string>
 
     <string name="questionNumber">Question %1$d</string>
-    <string name="drinkRecommendation">Your recommended drink: %1$s</string>
+    <string name="drinkRecommendation">Drink recommendation: %1$s</string>
+    <string name="image_of_recommended_drink">Image of recommended drink</string>
 </resources>

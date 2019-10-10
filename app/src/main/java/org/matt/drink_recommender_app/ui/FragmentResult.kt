@@ -37,7 +37,20 @@ class FragmentResult : Fragment(){
 
         viewModel.recommendedDrinkLiveData.observe(viewLifecycleOwner, Observer {
             displayDrinkRecommendation.text = getString(R.string.drinkRecommendation, it)
+            displayDrinkImage(it)
         })
+    }
+
+    fun displayDrinkImage(drinkName: String) {
+        val imageResource: Int =
+        when(drinkName) {
+            "beer" -> R.drawable.beer
+            "wine" -> R.drawable.wine
+            "water" -> R.drawable.water
+            "soda" -> R.drawable.soda
+            else -> -1
+        }
+        drink_image.setImageResource(imageResource)
     }
 
 }
