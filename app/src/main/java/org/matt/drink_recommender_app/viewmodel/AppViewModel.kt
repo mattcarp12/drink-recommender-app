@@ -1,10 +1,6 @@
 package org.matt.drink_recommender_app.viewmodel
 
-import android.app.Application
 import android.util.Log
-import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -12,7 +8,7 @@ import io.reactivex.schedulers.Schedulers
 import org.matt.drink_recommender_app.model.Answers
 import org.matt.drink_recommender_app.repository.Repository
 
-class AppViewModel(application: Application) : AndroidViewModel(Application()) {
+class AppViewModel : ViewModel() {
 
     var TAG: String = "AppViewModel"
     val repository: Repository = Repository()
@@ -68,6 +64,14 @@ class AppViewModel(application: Application) : AndroidViewModel(Application()) {
             .subscribe(this::handleResponse, this::handleError)
     }
 
+    fun sendResponse(preferredDrink: String) {
+        /*repository
+            .submitResponse(UserResponse(preferredDrink, answers))
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(this::onResponseComplete, this::handleError)*/
+    }
+
     fun handleResponse(response: String) {
         recommendedDrinkLiveData.value = response
     }
@@ -76,7 +80,7 @@ class AppViewModel(application: Application) : AndroidViewModel(Application()) {
         Log.d(TAG, error.toString())
     }
 
-    fun sendResponse(response: String) {
-        Toast.makeText(this.getApplication(), response, LENGTH_SHORT).show()
+    fun onResponseComplete() {
+        // TODO: something
     }
 }

@@ -16,10 +16,5 @@ interface DrinkRecommenderApi {
     @GET("/drink-recommender")
     fun getRecommendation(@QueryMap answers: Map<String, String>): Single<String>
 
-    @POST("/drink-recommender")
-    fun postAnswersAndResponse(
-        @QueryMap answers: Map<String, String>,
-        @Query("response") response: String
-    ): Completable
 
 }
