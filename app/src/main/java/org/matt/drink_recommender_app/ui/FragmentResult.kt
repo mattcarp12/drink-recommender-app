@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import kotlinx.android.synthetic.main.fragment_question.*
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_result.*
 import org.matt.drink_recommender_app.R
 import org.matt.drink_recommender_app.viewmodel.AppViewModel
@@ -27,7 +27,7 @@ class FragmentResult : Fragment(){
             ViewModelProviders.of(this)[AppViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
 
-        viewModel.getResponse()
+        viewModel.getDrinkRecommendation()
 
         return view
     }
@@ -39,6 +39,9 @@ class FragmentResult : Fragment(){
             displayDrinkRecommendation.text = getString(R.string.drinkRecommendation, it)
             displayDrinkImage(it)
         })
+
+        agree_button.setOnClickListener({agreeButtonClick()})
+        disagree_button.setOnClickListener({disagreeButtonClick()})
     }
 
     fun displayDrinkImage(drinkName: String) {
@@ -51,6 +54,18 @@ class FragmentResult : Fragment(){
             else -> -1
         }
         drink_image.setImageResource(imageResource)
+    }
+
+    fun agreeButtonClick() {
+        if (viewModel.recommendedDrinkLiveData.value != null) {
+            viewModel.sendResponse(viewModel.recommendedDrinkLiveData.value.toString())
+        }
+
+        // TODO: display finish dialog
+    }
+
+    fun disagreeButtonClick() {
+        findNavController().navigate(R.id.action_fragmentResult_to_fragmentDrinkMenuLayout)
     }
 
 }

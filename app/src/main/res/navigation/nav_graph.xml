@@ -27,5 +27,12 @@
         android:id="@+id/fragmentResult"
         android:name="org.matt.drink_recommender_app.ui.FragmentResult"
         android:label="fragment_result"
-        tools:layout="@layout/fragment_result" />
+        tools:layout="@layout/fragment_result" >
+        <action
+            android:id="@+id/action_fragmentResult_to_fragmentDrinkMenuLayout"
+            app:destination="@id/fragmentDrinkMenuLayout" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentDrinkMenuLayout"
+        android:name="org.matt.drink_recommender_app.ui.FragmentDrinkMenu" />
 </navigation>

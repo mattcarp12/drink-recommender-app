@@ -1,6 +1,10 @@
 package org.matt.drink_recommender_app.viewmodel
 
+import android.app.Application
 import android.util.Log
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -8,7 +12,7 @@ import io.reactivex.schedulers.Schedulers
 import org.matt.drink_recommender_app.model.Answers
 import org.matt.drink_recommender_app.repository.Repository
 
-class AppViewModel : ViewModel() {
+class AppViewModel(application: Application) : AndroidViewModel(Application()) {
 
     var TAG: String = "AppViewModel"
     val repository: Repository = Repository()
@@ -56,7 +60,7 @@ class AppViewModel : ViewModel() {
     fun getAnswer(): String? =
         answers.get(questions.questionList[currentQuestionNumber].questionName)
 
-    fun getResponse() {
+    fun getDrinkRecommendation() {
         repository
             .getRecommendedDrink(answers)
             .observeOn(AndroidSchedulers.mainThread())
@@ -70,5 +74,9 @@ class AppViewModel : ViewModel() {
 
     fun handleError(error: Throwable) {
         Log.d(TAG, error.toString())
+    }
+
+    fun sendResponse(response: String) {
+        Toast.makeText(this.getApplication(), response, LENGTH_SHORT).show()
     }
 }

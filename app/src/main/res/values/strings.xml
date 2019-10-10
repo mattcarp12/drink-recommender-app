@@ -14,4 +14,9 @@
     <string name="questionNumber">Question %1$d</string>
     <string name="drinkRecommendation">Drink recommendation: %1$s</string>
     <string name="image_of_recommended_drink">Image of recommended drink</string>
+    <string name="please_select_preferred_drink">Please select preferred drink:</string>
+    <string name="choice_beer">beer</string>
+    <string name="choice_wine">wine</string>
+    <string name="choice_soda">soda</string>
+    <string name="choice_water">water</string>
 </resources>
