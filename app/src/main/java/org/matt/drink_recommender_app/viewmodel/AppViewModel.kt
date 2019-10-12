@@ -6,26 +6,31 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.matt.drink_recommender_app.model.Answers
+import org.matt.drink_recommender_app.model.Question
 import org.matt.drink_recommender_app.repository.Repository
 
 class AppViewModel : ViewModel() {
 
     var TAG: String = "AppViewModel"
     val repository: Repository = Repository()
-    val questions = repository.getQuestions()
+    lateinit var questionList: List<Question>
     val answers = Answers()
     var currentQuestionNumber = 0
 
+
     val currentQuestionNumberLiveData: MutableLiveData<Int> = MutableLiveData(currentQuestionNumber)
+
     val currentQuestionLiveData: MutableLiveData<String> =
-        MutableLiveData(questions.questionList[currentQuestionNumber].questionText)
-    val currentQuestionResponsesLiveData: MutableLiveData<List<String>> =
-        MutableLiveData(questions.questionList[currentQuestionNumber].responses)
+        MutableLiveData(questionList[currentQuestionNumber].questionText)
+
+    val currentQuestionChoicesLiveData: MutableLiveData<List<String>> =
+        MutableLiveData(questionList[currentQuestionNumber].choices)
+
     val recommendedDrinkLiveData: MutableLiveData<String> = MutableLiveData()
 
 
     fun nextQuestion(): Boolean {
-        if (currentQuestionNumber == questions.size() - 1) return false
+        if (currentQuestionNumber == questionList.size - 1) return false
         currentQuestionNumber++
         update()
         return true
@@ -40,13 +45,13 @@ class AppViewModel : ViewModel() {
 
     fun update() {
         currentQuestionNumberLiveData.value = currentQuestionNumber
-        currentQuestionLiveData.value = questions.questionList[currentQuestionNumber].questionText
-        currentQuestionResponsesLiveData.value =
-            questions.questionList[currentQuestionNumber].responses
+        currentQuestionLiveData.value = questionList[currentQuestionNumber].questionText
+        currentQuestionChoicesLiveData.value =
+            questionList[currentQuestionNumber].choices
     }
 
     fun setAnswer(answer: String) {
-        answers.set(questions.questionList[currentQuestionNumber].questionName, answer)
+        answers.set(questionList[currentQuestionNumber].questionName, answer)
     }
 
     fun setAnswer(question: String, answer: String) {
@@ -54,7 +59,19 @@ class AppViewModel : ViewModel() {
     }
 
     fun getAnswer(): String? =
-        answers.get(questions.questionList[currentQuestionNumber].questionName)
+        answers.get(questionList[currentQuestionNumber].questionName)
+
+    fun getQuestions() {
+        repository
+            .getQuestions()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(this::handleQuestionResponse, this::handleError)
+    }
+
+    fun handleQuestionResponse(response: List<Question>) {
+        questionList = response
+    }
 
     fun getDrinkRecommendation() {
         repository

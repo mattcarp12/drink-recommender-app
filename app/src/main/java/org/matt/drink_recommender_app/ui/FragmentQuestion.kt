@@ -31,6 +31,8 @@ class FragmentQuestion : Fragment() {
             ViewModelProviders.of(this)[AppViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
 
+        viewModel.getQuestions()
+
         return view
     }
 
@@ -48,7 +50,7 @@ class FragmentQuestion : Fragment() {
             question_text.text = it
         })
 
-        viewModel.currentQuestionResponsesLiveData.observe(viewLifecycleOwner, Observer {
+        viewModel.currentQuestionChoicesLiveData.observe(viewLifecycleOwner, Observer {
             setRadioButtons(it)
         })
 

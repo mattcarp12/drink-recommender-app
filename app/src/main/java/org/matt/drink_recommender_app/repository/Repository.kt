@@ -7,15 +7,17 @@ import org.matt.drink_recommender_app.model.Question
 import org.matt.drink_recommender_app.model.Questions
 import org.matt.drink_recommender_app.model.UserResponse
 import org.matt.drink_recommender_app.repository.Network.DrinkRecommenderService
+import org.matt.drink_recommender_app.repository.Network.QuestionsService
 import org.matt.drink_recommender_app.repository.Network.UserResponseService
 
 class Repository {
 
     val drinkRecommenderService = DrinkRecommenderService()
     val userResponseService = UserResponseService()
+    val questionsService = QuestionsService()
 
-    fun getQuestions(): Questions {
-        return getMockQuestions()
+    fun getQuestions(): Single<List<Question>> {
+        return questionsService.getQuestions()
     }
 
     fun getMockQuestions(): Questions {
