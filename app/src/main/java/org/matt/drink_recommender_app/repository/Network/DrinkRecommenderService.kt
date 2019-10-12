@@ -14,7 +14,6 @@ class DrinkRecommenderService {
     val drinkRecommenderApi: DrinkRecommenderApi =
         Retrofit.Builder()
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            //.addConverterFactory(GsonConverterFactory.create())
             .addConverterFactory(ScalarsConverterFactory.create())
             .baseUrl(baseUrl)
             .build()

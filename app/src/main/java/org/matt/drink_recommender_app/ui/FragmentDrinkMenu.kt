@@ -24,8 +24,6 @@ class FragmentDrinkMenu : Fragment() {
             ViewModelProviders.of(this)[AppViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
 
-        viewModel.getDrinkRecommendation()
-
         return view
     }
 
